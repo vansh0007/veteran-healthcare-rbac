@@ -399,26 +399,26 @@ timestamp: When action occurred
 
 # Data Filtering:
 
-1.Repository patterns filter data based on users roles
+1. Repository patterns filter data based on users roles
 
 2. Organization hierarchy considered in queries
 
 ## JWT Integration:
 
-Roles embedded in JWT for quick validation
+1. Roles embedded in JWT for quick validation
 
-Refresh token implementation recommended for production
+2. Refresh token implementation recommended for production
 
 ## Permission Flow
-User authenticates, receives JWT with roles
+1. User authenticates, receives JWT with roles
 
-Request hits endpoint with @Roles() decorator
+2. Request hits endpoint with @Roles() decorator
 
-RolesGuard validates JWT and checks roles
+3. RolesGuard validates JWT and checks roles
 
-Service layer applies additional data filtering
+4. Service layer applies additional data filtering
 
-Repository fetches only authorized data
+5. Repository fetches only authorized data
 
 ## Future Considerations
 
@@ -426,7 +426,7 @@ Repository fetches only authorized data
 
 * Temporary Access:
 
-1.Add expiration to role assignments
+1. Add expiration to role assignments
 
 2. Implement delegation workflows
 
@@ -452,7 +452,7 @@ Repository fetches only authorized data
 
 # Rate Limiting:
 
-1.Protect against brute force attacks
+1. Protect against brute force attacks
 
 2. Implement on sensitive endpoints
 
@@ -472,9 +472,9 @@ Repository fetches only authorized data
 
 # Optimized Queries:
 
-1.Materialized views for common access patterns
+1. Materialized views for common access patterns
 
-2.Database indexing strategy for large datasets
+2. Database indexing strategy for large datasets
 
 # Batch Processing:
 
@@ -484,7 +484,7 @@ Repository fetches only authorized data
 
 # Additional Features
 
-1.Self-Service Portal:
+1. Self-Service Portal:
 
 2. Allow users to request elevated access
 
@@ -492,13 +492,13 @@ Repository fetches only authorized data
 
 # Multi-Factor Authentication:
 
-1.  Required for sensitive operations
+1. Required for sensitive operations
 
 2. Integration with existing veteran auth systems
 
 # API Gateway Integration:
 
-1.Centralized access control
+1. Centralized access control
 
 2. Request transformation based on roles
 
@@ -524,14 +524,18 @@ Repository fetches only authorized data
 
 # Testing Strategy:
 
-1.Unit tests for core logic
+1. Unit tests for core logic
 
-2.Integration tests for API endpoints
+2. Integration tests for API endpoints
 
 3. E2E tests for critical user flows
 
 # Error Handling:
 
-1.Consistent error responses
+1. Consistent error responses
 
 2. No sensitive data in error messages
+
+
+
+
