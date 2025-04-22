@@ -539,3 +539,8 @@ timestamp: When action occurred
 
 
 
+## Data Model
+![Architecture Diagram](./20250422_0d6b85.png)
+
+## Flow
+![Data Model Diagram](./20250422_cf1977.png)
