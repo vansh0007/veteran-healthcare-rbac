@@ -1,98 +1,221 @@
-<p align="center">
-  <a href="http://nestjs.com/" target="blank"><img src="https://nestjs.com/img/logo-small.svg" width="120" alt="Nest Logo" /></a>
-</p>
+# Veteran Healthcare RBAC System
 
-[circleci-image]: https://img.shields.io/circleci/build/github/nestjs/nest/master?token=abc123def456
-[circleci-url]: https://circleci.com/gh/nestjs/nest
+A Role-Based Access Control (RBAC) system for veteran healthcare management with JWT authentication.
 
-  <p align="center">A progressive <a href="http://nodejs.org" target="_blank">Node.js</a> framework for building efficient and scalable server-side applications.</p>
-    <p align="center">
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/v/@nestjs/core.svg" alt="NPM Version" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/l/@nestjs/core.svg" alt="Package License" /></a>
-<a href="https://www.npmjs.com/~nestjscore" target="_blank"><img src="https://img.shields.io/npm/dm/@nestjs/common.svg" alt="NPM Downloads" /></a>
-<a href="https://circleci.com/gh/nestjs/nest" target="_blank"><img src="https://img.shields.io/circleci/build/github/nestjs/nest/master" alt="CircleCI" /></a>
-<a href="https://discord.gg/G7Qnnhy" target="_blank"><img src="https://img.shields.io/badge/discord-online-brightgreen.svg" alt="Discord"/></a>
-<a href="https://opencollective.com/nest#backer" target="_blank"><img src="https://opencollective.com/nest/backers/badge.svg" alt="Backers on Open Collective" /></a>
-<a href="https://opencollective.com/nest#sponsor" target="_blank"><img src="https://opencollective.com/nest/sponsors/badge.svg" alt="Sponsors on Open Collective" /></a>
-  <a href="https://paypal.me/kamilmysliwiec" target="_blank"><img src="https://img.shields.io/badge/Donate-PayPal-ff3f59.svg" alt="Donate us"/></a>
-    <a href="https://opencollective.com/nest#sponsor"  target="_blank"><img src="https://img.shields.io/badge/Support%20us-Open%20Collective-41B883.svg" alt="Support us"></a>
-  <a href="https://twitter.com/nestframework" target="_blank"><img src="https://img.shields.io/twitter/follow/nestframework.svg?style=social&label=Follow" alt="Follow us on Twitter"></a>
-</p>
-  <!--[![Backers on Open Collective](https://opencollective.com/nest/backers/badge.svg)](https://opencollective.com/nest#backer)
-  [![Sponsors on Open Collective](https://opencollective.com/nest/sponsors/badge.svg)](https://opencollective.com/nest#sponsor)-->
+![Docker](https://img.shields.io/badge/Docker-2CA5E0?logo=docker&logoColor=white)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-316192?logo=postgresql&logoColor=white)
+![NestJS](https://img.shields.io/badge/NestJS-E0234E?logo=nestjs&logoColor=white)
+![TypeScript](https://img.shields.io/badge/TypeScript-3178C6?logo=typescript&logoColor=white)
 
-## Description
+## Table of Contents
+- [🚀 Quick Start](#-quick-start)
+- [🐳 Docker Setup](#-docker-setup)
+- [⚙️ Configuration](#️-configuration)
+- [🔐 Authentication](#-authentication)
+- [📚 API Documentation](#-api-documentation)
+- [🧪 Testing](#-testing)
+- [🛠️ Troubleshooting](#️-troubleshooting)
 
-[Nest](https://github.com/nestjs/nest) framework TypeScript starter repository.
-
-## Project setup
+## 🚀 Quick Start
 
 ```bash
-$ npm install
+# Clone the repository
+git clone https://github.com/your-repo/veteran-healthcare-rbac.git
+cd veteran-healthcare-rbac
+
+# Install dependencies
+npm install
+
+# Start the system (Docker required)
+npm run start:docker
+
+
+
+# Start all containers in detached mode
+docker-compose up -d
+
+# View running containers
+docker ps
+
+# Stop containers
+docker-compose down
+
+# View logs
+docker-compose logs -f
+
+
+
+# Database
+POSTGRES_HOST=postgres
+POSTGRES_PORT=5432
+POSTGRES_USER=admin
+POSTGRES_PASSWORD=secret
+POSTGRES_DB=veteran_healthcare
+
+# JWT
+JWT_SECRET=your-strong-secret-key
+JWT_EXPIRES_IN=60m
+
+# App
+PORT=3000
+NODE_ENV=development
+
+
+# Login and get JWT token
 ```
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "admin@veteran.org",
+    "password": "Admin@123"
+  }'
+  ```
 
-## Compile and run the project
 
-```bash
-# development
-$ npm run start
+  POST /users
+Content-Type: application/json
+Authorization: Bearer <token>
 
-# watch mode
-$ npm run start:dev
+{
+  "email": "new@user.com",
+  "password": "Password123",
+  "firstName": "John",
+  "lastName": "Doe",
+  "roles": [{"role": "veteran"}]
+}
 
-# production mode
-$ npm run start:prod
-```
 
-## Run tests
 
-```bash
-# unit tests
-$ npm run test
+GET /organizations
+Authorization: Bearer <token>
 
-# e2e tests
-$ npm run test:e2e
 
-# test coverage
-$ npm run test:cov
-```
 
-## Deployment
+# Run unit tests
+npm run:test
 
-When you're ready to deploy your NestJS application to production, there are some key steps you can take to ensure it runs as efficiently as possible. Check out the [deployment documentation](https://docs.nestjs.com/deployment) for more information.
 
-If you are looking for a cloud-based platform to deploy your NestJS application, check out [Mau](https://mau.nestjs.com), our official platform for deploying NestJS applications on AWS. Mau makes deployment straightforward and fast, requiring just a few simple steps:
 
-```bash
-$ npm install -g @nestjs/mau
-$ mau deploy
-```
 
-With Mau, you can deploy your application in just a few clicks, allowing you to focus on building features rather than managing infrastructure.
+#Troubleshooting
 
-## Resources
+# Check PostgreSQL logs
+docker-compose logs postgres
 
-Check out a few resources that may come in handy when working with NestJS:
+# Test database connection
+docker exec -it veteran-healthcare-postgres psql -U admin -d veteran_healthcare
 
-- Visit the [NestJS Documentation](https://docs.nestjs.com) to learn more about the framework.
-- For questions and support, please visit our [Discord channel](https://discord.gg/G7Qnnhy).
-- To dive deeper and get more hands-on experience, check out our official video [courses](https://courses.nestjs.com/).
-- Deploy your application to AWS with the help of [NestJS Mau](https://mau.nestjs.com) in just a few clicks.
-- Visualize your application graph and interact with the NestJS application in real-time using [NestJS Devtools](https://devtools.nestjs.com).
-- Need help with your project (part-time to full-time)? Check out our official [enterprise support](https://enterprise.nestjs.com).
-- To stay in the loop and get updates, follow us on [X](https://x.com/nestframework) and [LinkedIn](https://linkedin.com/company/nestjs).
-- Looking for a job, or have a job to offer? Check out our official [Jobs board](https://jobs.nestjs.com).
 
-## Support
 
-Nest is an MIT-licensed open source project. It can grow thanks to the sponsors and support by the amazing backers. If you'd like to join them, please [read more here](https://docs.nestjs.com/support).
 
-## Stay in touch
 
-- Author - [Kamil Myśliwiec](https://twitter.com/kammysliwiec)
-- Website - [https://nestjs.com](https://nestjs.com/)
-- Twitter - [@nestframework](https://twitter.com/nestframework)
+</details><details> <summary>Migration problems</summary>
+bash
+# Revert and re-run migrations
+npm run migration:revert
+npm run migration:run
 
-## License
+# Generate new migration
+npm run migration:generate --name=YourMigrationName
 
-Nest is [MIT licensed](https://github.com/nestjs/nest/blob/master/LICENSE).
+
+
+
+
+Testing with cURL
+1. Create Admin User (First Time Setup)
+bash
+curl -X POST http://localhost:3000/users \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "admin@veteran.org",
+    "password": "Admin@123",
+    "firstName": "System",
+    "lastName": "Admin",
+    "roles": [{"role": "admin"}]
+  }'
+2. Login as Admin
+bash
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "admin@veteran.org",
+    "password": "Admin@123"
+  }'
+Save the returned access_token for subsequent requests.
+
+3. Create Healthcare Provider
+bash
+curl -X POST http://localhost:3000/users \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -d '{
+    "email": "doctor@veteran.org",
+    "password": "Doctor@123",
+    "firstName": "John",
+    "lastName": "Doe",
+    "roles": [{"role": "provider", "organizationId": 1}]
+  }'
+4. Create Veteran User
+bash
+curl -X POST http://localhost:3000/users \
+  -H "Content-Type: application/json" \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN" \
+  -d '{
+    "email": "veteran@example.com",
+    "password": "Veteran@123",
+    "firstName": "James",
+    "lastName": "Smith",
+    "roles": [{"role": "veteran"}]
+  }'
+5. Login as Healthcare Provider
+bash
+curl -X POST http://localhost:3000/auth/login \
+  -H "Content-Type: application/json" \
+  -d '{
+    "email": "doctor@veteran.org",
+    "password": "Doctor@123"
+  }'
+6. Access Restricted Endpoints
+bash
+# As admin - List all users
+curl -X GET http://localhost:3000/users \
+  -H "Authorization: Bearer YOUR_ADMIN_TOKEN"
+
+# As provider - Will fail (403 Forbidden)
+curl -X GET http://localhost:3000/users \
+  -H "Authorization: Bearer YOUR_PROVIDER_TOKEN"
+Sample Data Structure
+Roles Available
+admin - System administrator
+
+provider - Healthcare provider (requires organizationId)
+
+veteran - Veteran user
+
+staff - Support staff (requires organizationId)
+
+Organization Structure
+json
+{
+  "id": 1,
+  "name": "VA Medical Center",
+  "address": "123 Healthcare Ave",
+  "phone": "555-123-4567"
+}
+Troubleshooting
+Database connection issues:
+
+Verify PostgreSQL container is running: docker ps
+
+Check logs: docker-compose logs postgres
+
+Migration errors:
+
+Run: npm run migration:revert then npm run migration:run
+
+Authentication problems:
+
+Verify JWT_SECRET in .env matches
+
+Check token expiration (default 60 minutes)
